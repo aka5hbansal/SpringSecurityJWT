@@ -41,32 +41,33 @@ public class AuthenticationService {
         this.authenticationManager = authenticationManager;
     }
 
-    public AuthenticationResponse register(User request) {
-
-        // check if user already exist. if exist than authenticate the user
-        if(repository.findByUsername(request.getUsername()).isPresent()) {
-            return new AuthenticationResponse(null, null,"User already exist");
-        }
-
-        User user = new User();
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setUsername(request.getUsername());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-
-
-        user.setRole(Role.USER);
-
-        user = repository.save(user);
-
-        String accessToken = jwtService.generateAccessToken(user);
-        String refreshToken = jwtService.generateRefreshToken(user);
-
-        saveUserToken(accessToken, refreshToken, user);
-
-        return new AuthenticationResponse(accessToken, refreshToken,"User registration was successful");
-
-    }
+//    public AuthenticationResponse register(User request) {
+//
+//        // check if user already exist. if exist than authenticate the user
+//        if(repository.findByUsername(request.getUsername()).isPresent()) {
+//            return new AuthenticationResponse(null, null,"User already exist");
+//        }
+//
+//        User user = new User();
+//        user.setFirstName(request.getFirstName());
+//        user.setLastName(request.getLastName());
+//        user.setUsername(request.getUsername());
+//        user.setPassword(passwordEncoder.encode(request.getPassword()));
+//        user.setEmail(request.getEmail());
+//        user.setPhoneNumber(request.getPhoneNumber());
+//
+//        user.setRole(Role.USER);
+//
+//        user = repository.save(user);
+//
+//        String accessToken = jwtService.generateAccessToken(user);
+//        String refreshToken = jwtService.generateRefreshToken(user);
+//
+//        saveUserToken(accessToken, refreshToken, user);
+//
+//        return new AuthenticationResponse(accessToken, refreshToken,"User registration was successful");
+//
+//    }
 
     public AuthenticationResponse authenticate(User request) {
         authenticationManager.authenticate(
