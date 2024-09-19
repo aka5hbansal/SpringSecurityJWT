@@ -1,10 +1,25 @@
 package com.example.jwtSecurity.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AddressDTO {
+    private Long id;
     private String street;
     private String city;
     private String state;
     private String zipCode;
+
+    public AddressDTO() {
+    }
+
+    public AddressDTO(String street, String city, String state, String zipCode) {
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+    }
+
 
     // Getters and Setters
 
@@ -38,6 +53,14 @@ public class AddressDTO {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
 
